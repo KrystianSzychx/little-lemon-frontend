@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  Route,
+  Routes
+} from 'react-router-dom'
+import Layout from './components/layout/Layout';
+import pages from './utils/pages';
+import Home from './components/pages/Home';
+import Bookings from './components/pages/Bookings';
+import UnderConstruction from './components/pages/UnderConstruction';
+import ConfirmedBooking from './components/pages/Bookings/ConfirmedBooking';
+import NotFound from './components/pages/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <>
+   <Layout>
+    <Routes>
+      <Route path={pages.get('home').path} element={<Home />} />
+      <Route 
+        path={pages.get('about').path}
+        element={<UnderConstruction />}
+      />
+      <Route 
+        path={pages.get('menu').path}
+        element={<UnderConstruction />}
+      />
+      <Route path={pages.get('bookings').path} element={<Bookings/>}/>
+      <Route 
+        path={pages.get('confirmedBooking').path}
+        element={<ConfirmedBooking />}
+      />
+      <Route 
+        path={pages.get('orderOnline').path}
+        element={<UnderConstruction />}
+      />
+      <Route 
+        path={pages.get('login').path}
+        element={<UnderConstruction />}
+      />
+      <Route 
+        path="*" element={<NotFound />}
+      />
+    </Routes>
+   </Layout>
+   </>
   );
 }
 
