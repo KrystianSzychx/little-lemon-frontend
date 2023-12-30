@@ -1,4 +1,4 @@
-#Little Lemon Restaurant Frontend Documentation
+# Little Lemon Restaurant Frontend Documentation
 
 ## Overview
 Welcome to the documentation for the frontend of the Little Lemon Restaurant project. This React-based application is designed to provide users with a user-friendly interface for exploring the restaurant's menu, placing orders online, and making reservations. Please note that certain sections of the application are currently under construction.
