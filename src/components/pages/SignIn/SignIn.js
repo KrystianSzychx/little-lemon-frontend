@@ -58,11 +58,11 @@ export default function SignIn() {
     if (input.email !== "" && input.password !== "") {
       auth.loginAction({ Mail: input.email, Password: input.password })
         .then(() => {
-          navigate('/'); // Użyj navigate('/') do przekierowania na stronę główną
+          navigate('/');
         })
         .catch((err) => {
           console.error("Login failed:", err);
-          // Obsługa błędu logowania
+
         });
     } else {
       alert("Please provide a valid input");

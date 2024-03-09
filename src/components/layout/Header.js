@@ -65,7 +65,7 @@ const Header = () => {
           {/* Tutaj kontrolujemy wyświetlanie 'Login' lub 'Logout' */}
           {user ? (
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link to="/logout ">Logout</Link>
               {/* <button onClick={handleLogout}>Logout</button> */}
             </li>
           ) : 
