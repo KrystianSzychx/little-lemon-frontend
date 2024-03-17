@@ -6,7 +6,7 @@ import Bookings from './components/pages/Bookings';
 import UnderConstruction from './components/pages/UnderConstruction';
 import ConfirmedBooking from './components/pages/Bookings/ConfirmedBooking';
 import NotFound from './components/pages/NotFound';
-import Login from './components/pages/SignIn/LoginOriginal';
+//import Login from './components/pages/SignIn/LoginOriginal';
 import AuthProvider from './context/hooks/AuthProvider';
 import PrivateRoute from './components/pages/SignIn/PrivateRoute';
 import Dashboard from './components/pages/SignIn/Dashboard';
