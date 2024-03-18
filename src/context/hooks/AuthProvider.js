@@ -25,11 +25,9 @@ const AuthProvider = ({ children }) => {
         navigate("/dashboard");
         return;
       }
-      // Możesz dodać dodatkowe logowanie błędów lub obsługę gdy token nie jest zwrócony
       throw new Error("Token not provided in response");
     } catch (err) {
       console.error(err);
-      // Tutaj dodaj obsługę błędów, np. wyświetlenie komunikatu użytkownikowi
     }
   };
   
@@ -38,7 +36,7 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     setToken("");
     localStorage.removeItem("site");
-    navigate("/login");
+    navigate("/SignIn");
   };
 
   return (
