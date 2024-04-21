@@ -1,8 +1,26 @@
-import chefsMarioAndAdrianAImage from './assets/chefs-mario-and-adrian_a.jpg';
-import chefsMarioAndAdrianBImage from './assets/chefs-mario-and-adrian_b.jpg';
+import React, { useState, useEffect } from 'react';
 import './OurStory.css';
+import { fetchImages } from './ImageService';
 
 const OurStory = () => {
+    const [chefImages, setChefImages] = useState([]);
+
+    useEffect(() => {
+        const fetchChefImages = async () => {
+            try {
+                const imageUrls = await fetchImages([
+                    'chefs-mario-and-adrian_a.jpg',
+                    'chefs-mario-and-adrian_b.jpg'
+                ]);
+                setChefImages(imageUrls);
+            } catch (error) {
+                console.error('Error fetching chef images:', error);
+            }
+        };
+
+        fetchChefImages();
+    }, []);
+
     return (
         <section className='container grid our-story'>
             <div className='our-story-description'>
@@ -25,8 +43,9 @@ const OurStory = () => {
                 </p>
             </div>
             <div className='our-story-chefs'>
-            <img src={chefsMarioAndAdrianAImage} alt='Chefs Mario and Adrian' />
-            <img src={chefsMarioAndAdrianBImage} alt='Chefs Mario and Adrian' />
+                {chefImages.map((imageUrl, index) => (
+                    <img key={index} src={imageUrl} alt={`Chefs Mario and Adrian ${index + 1}`} />
+                ))}
             </div>
         </section>
     );
