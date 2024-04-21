@@ -24,13 +24,13 @@ const Hero = () => {
         <section className='hero'>
             <div className='container grid'>
                 <div className='hero-information'>
-                    <h1>Little Lemon</h1>
-                    <h2>Chicago</h2>
-                    <p>
-                        We are a family owned Mediterranean restaurant, 
-                        focused on traditional recipes served with a modern twist.
-                    </p>
-                    <Link className='button-primary' to={pages.get('bookings').path}>
+                <h1 data-testid="cypress-title">Little Lemon</h1>
+                <h2>Chicago</h2>
+                <p>
+                 We are a family owned Mediterranean restaurant, 
+                 focused on traditional recipes served with a modern twist.
+                </p>
+                <Link className='button-primary' to={pages.get('bookings').path}>
                     Reserve a table
                 </Link>
                 </div>

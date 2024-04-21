@@ -7,38 +7,33 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
+  
 
   const loginAction = async (data) => {
     try {
-      const response = await fetch("https://localhost:7051/api/Auth/login", {
+      const response = await fetch("https://localhost:7235/api/Auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      const res = await response.json();
-      if (res.token) { 
-        setUser({ username: data.username }); 
-        setToken(res.token);
-        localStorage.setItem("site", res.token);
+      if (response.ok) { // Sprawdź, czy odpowiedź jest OK        
+        setUser({ username: data.username });
         navigate("/dashboard");
         return;
       }
-      // Możesz dodać dodatkowe logowanie błędów lub obsługę gdy token nie jest zwrócony
-      throw new Error("Token not provided in response");
+      throw new Error("Invalid login credentials");
     } catch (err) {
-      console.error(err);
-      // Tutaj dodaj obsługę błędów, np. wyświetlenie komunikatu użytkownikowi
+      throw err;
     }
   };
-  
 
   const logOut = () => {
     setUser(null);
     setToken("");
     localStorage.removeItem("site");
-    navigate("/login");
+    navigate("/SignIn");
   };
 
   return (
@@ -46,7 +41,6 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-
 };
 
 export default AuthProvider;
