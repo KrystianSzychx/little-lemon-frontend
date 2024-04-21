@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import bruschettaImage from '../Home/assets/bruschetta.jpg';
-import greekSaladImage from '../Home/assets/greek-salad.jpg';
-import lemonDessertImage from '../Home/assets/lemon-dessert.jpg';
+import React, { useState, useEffect } from 'react';
+// import bruschettaImage from '../Home/assets/bruschetta.jpg';
+// import greekSaladImage from '../Home/assets/greek-salad.jpg';
+// import lemonDessertImage from '../Home/assets/lemon-dessert.jpg';
 import './Order.css';
 import MealCard from "../Home/MealCard";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartPage from '../CartPage/CartPage';
+import { fetchImages } from '../Home/ImageService';
 
 const meals = [
     {
         name: 'Greek Salad',
-        image: greekSaladImage,
+        imageName: 'greek-salad.jpg',
         price: '$12.99',
         description: `The famous greek salad of crispy lettuce, peppers, olives and 
         our Chicago style feta cheese, garnished with crunchy garlic and rosemary 
@@ -19,14 +20,14 @@ const meals = [
     },
     {
         name: 'Bruschetta',
-        image: bruschettaImage,
+        imageName: 'bruschetta.jpg',
         price: '$5.99',
         description: `Our Bruschetta is made from grilled bread that has been 
         smeared with garlic and seasoned with salt and olive oil.`,
     },
     {
         name: 'Lemon Dessert',
-        image: lemonDessertImage,
+        imageName: 'lemon-dessert.jpg',
         price: '$5.00',
         description: `This comes straight from grandma's recipe book, every last 
         ingredient has been sourced and is as authentic as can be imagined.`,
@@ -69,6 +70,21 @@ const Order = () => {
         setCartItems(updatedCartItems);
     };
 
+    const [mealImages, setMealImages] = useState([]);
+      
+        useEffect(() => {
+          const fetchMealImages = async () => {
+            try {
+              const imageUrls = await fetchImages(meals.map(meal => meal.imageName));
+              setMealImages(imageUrls);
+            } catch (error) {
+              console.error('Error fetching image URLs:', error);
+            }
+          };
+      
+          fetchMealImages();
+        }, []);
+
     return (
         <div className="orders">
             {!showCartPage ? (
@@ -76,7 +92,7 @@ const Order = () => {
                     <h2>This week specials!</h2>
                     <section className="container grid week-specials">
                         {meals.map((meal, index) =>
-                            <MealCard key={index} meal={meal} displayAddToCart={true} handleAddToCart={() => handleAddToCart(meal)} />
+                            <MealCard key={index} meal={meal} imageUrl={mealImages[index]} displayAddToCart={true} handleAddToCart={() => handleAddToCart(meal)} />
                         )}
                     </section>
                     <div className="cart-icon" onClick={handleShowCartPage}>
