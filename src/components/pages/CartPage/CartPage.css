@@ -1,0 +1,40 @@
+.cart-page {
+    padding: 20px;
+}
+
+.cart-items {
+    display: grid;
+    grid-gap: 20px;
+}
+
+.cart-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.cart-item h3 {
+    margin-top: 0;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-button {
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-button:hover {
+    background-color: #0056b3;
+}
+
+.quantity {
+    margin: 0 10px;
+    font-weight: bold;
+}

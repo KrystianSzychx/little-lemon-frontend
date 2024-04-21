@@ -26,6 +26,32 @@
     font-weight: normal;
     font-size: 2.5rem;
   }
+
+  .cart-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000; /* Ustawienie większego z-index */
+}
+
+.cart-count {
+    position: absolute;
+    top: -15px;
+    right: -15px; /* Przesunięcie licznika w prawo */
+    background-color: green;
+    color: white;
+    border-radius: 50%;
+    padding: 8px; /* Zmniejszenie paddingu */
+    font-size: 12px; /* Zmniejszenie rozmiaru czcionki */
+    font-weight: bold;
+    width: 24px; /* Zmniejszenie szerokości */
+    height: 24px; /* Zmniejszenie wysokości */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001; /* Ustawienie większego z-index niż koszyka */
+}
   
   /*-- Media queries ------------------------------------------------------*/
   
