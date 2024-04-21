@@ -15,23 +15,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../../../context/hooks/AuthProvider';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -41,6 +30,8 @@ export default function SignIn() {
     email: "",
     password: "",
   });
+
+  const [openSnackbar, setOpenSnackbar] = useState(false); // Stan dla Snackbar
 
   const auth = useAuth(); 
   const navigate = useNavigate();
@@ -53,19 +44,26 @@ export default function SignIn() {
     }));
   };
 
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.email !== "" && input.password !== "") {
-      auth.loginAction({ Mail: input.email, Password: input.password })
+      auth.loginAction({ email: input.email, password: input.password })
         .then(() => {
           navigate('/');
         })
         .catch((err) => {
           console.error("Login failed:", err);
-
+          setOpenSnackbar(true); // Otwórz Snackbar w przypadku błędu logowania
         });
     } else {
-      alert("Please provide a valid input");
+      setOpenSnackbar(true); // Otwórz Snackbar w przypadku braku poprawnych danych
     }
   };
 
@@ -136,7 +134,23 @@ export default function SignIn() {
               </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+          <div>
+            <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
+              Invalid email or password. Please try again.
+            </Alert>
+          </div>
+        </Snackbar>
+        <Box mt={8}>
+          <Typography variant="body2" color="text.secondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+              Your Website
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+          </Typography>
+        </Box>
       </Container>
     </ThemeProvider>
   );
