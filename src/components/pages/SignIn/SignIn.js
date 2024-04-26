@@ -54,16 +54,31 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.email !== "" && input.password !== "") {
-      auth.loginAction({ email: input.email, password: input.password })
-        .then(() => {
-          navigate('/');
-        })
-        .catch((err) => {
-          console.error("Login failed:", err);
-          setOpenSnackbar(true); // Otwórz Snackbar w przypadku błędu logowania
-        });
+      fetch('https://localhost:7051/api/Account/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: input.email,
+          password: input.password
+        }),
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Login failed.');
+      })
+      .then(() => {
+        navigate('/');
+      })
+      .catch((err) => {
+        console.error("Login failed:", err);
+        setOpenSnackbar(true);
+      });
     } else {
-      setOpenSnackbar(true); // Otwórz Snackbar w przypadku braku poprawnych danych
+      setOpenSnackbar(true);
     }
   };
 
