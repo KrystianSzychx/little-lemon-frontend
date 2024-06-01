@@ -14,6 +14,7 @@ import SignIn from './components/pages/SignIn/SignIn';
 import SignUp from './components/pages/SignUp/SignUp';
 import Order from './components/pages/OrderOnline/Order';
 import CartPage from './components/pages/CartPage/CartPage';
+import Management from './components/pages/MealManagement/Management';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path={pages.get('bookings').path} element={<Bookings />} />
           <Route path={pages.get('confirmedBooking').path} element={<ConfirmedBooking />} />
           <Route path={pages.get('orderOnline').path} element={<Order />} />
+          <Route path={pages.get('Mangement').path} element={<Management />} />
           <Route path="/Cart" element={<CartPage /> } />
           <Route path="/SignIn" element={<SignIn /> } />
           <Route path="/SignUp" element={<SignUp />} />

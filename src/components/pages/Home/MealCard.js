@@ -16,11 +16,11 @@ const MealCard = ({ meal, imageUrl, displayAddToCart, handleAddToCart }) => {
         <img src={imageUrl} alt={meal.name} />
       </div>
       <div className="meal-card-header">
-        <h3>{meal.name}</h3>
-        <span>{meal.price}</span>
+        <h3>{meal.name}</h3>        
+        <span>{meal.price}$</span>
       </div>
       <div className="meal-card-body-footer">
-        <p>{meal.description}</p>
+        <p>{meal.type}</p>
         {displayAddToCart ? (
         <button onClick={addToCartHandler}>Add to cart</button>
         ): (

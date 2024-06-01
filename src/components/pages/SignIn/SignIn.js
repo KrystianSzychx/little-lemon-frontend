@@ -54,7 +54,7 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.email !== "" && input.password !== "") {
-      fetch('https://localhost:7051/api/Account/login', {
+      fetch('https://littlelemonwebapi.azurewebsites.net/api/Account/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -66,9 +66,10 @@ export default function SignIn() {
       })
       .then(response => {
         if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Login failed.');
+          const data = response.json();
+          auth.loginAction(data); // Ensure this line uses the proper method to set the user state
+          navigate('/');
+        }        
       })
       .then(() => {
         navigate('/');

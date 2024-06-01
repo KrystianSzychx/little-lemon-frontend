@@ -22,6 +22,7 @@ export default function SignUp() {
     email: '',
     password: ''
   });
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,14 +41,29 @@ export default function SignUp() {
     };
 
     try {
-      const response = await axios.post("https://localhost:7051/api/Account/registerUser", userData, {
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await axios.post(
+        "https://littlelemonwebapi.azurewebsites.net/api/Account/registerUser",
+        userData,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }
-      });
-      console.log('User created: ', response.data);
+      );
+
+      if (response.status === 200) {
+        setFormData({
+          username: '',
+          email: '',
+          password: ''
+        });
+        setSuccessMessage('Account created successfully!');
+      }
     } catch (error) {
       console.log('Error creating user ', error);
+      if (error.response) {
+        console.log('Error response data: ', error.response.data);
+      }
     }
   };
 
@@ -69,6 +85,11 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          {successMessage && (
+            <Typography component="p" variant="body1" color="success.main">
+              {successMessage}
+            </Typography>
+          )}
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
