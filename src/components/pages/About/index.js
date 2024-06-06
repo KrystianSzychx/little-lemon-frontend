@@ -24,8 +24,8 @@ const About = () => {
               We would love to hear from you! For reservations, catering services, or any other inquiries, please contact us at:
           </p>
           <p>
-              <strong>Phone:</strong> (123) 456-7890<br/>
-              <strong>Email:</strong> info@ourrestaurant.com
+              <strong>Phone:</strong> (312) 593-2744<br/>
+              <strong>Email:</strong> customer@littlelemon.com
           </p>
       </div>
     </div>
