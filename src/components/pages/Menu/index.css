@@ -1,0 +1,46 @@
+/* src/Menu.css */
+.menu-container {
+  background-color: #495E57;
+  color: #F4F4F9;
+  padding: 40px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 800px;
+  margin: 40px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-title {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #F4F4F9;
+  padding-bottom: 10px;
+}
+
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-item {
+  background-color: #6D7A75;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.8em;
+}
+
+.menu-item p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}

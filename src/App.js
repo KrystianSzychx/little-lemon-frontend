@@ -13,8 +13,10 @@ import Logout from './components/pages/Logout/Logout';
 import SignIn from './components/pages/SignIn/SignIn';
 import SignUp from './components/pages/SignUp/SignUp';
 import Order from './components/pages/OrderOnline/Order';
-import CartPage from './components/pages/CartPage/CartPage';
+import CartPage from './components/pages/CartPage/CartPage'
 import Management from './components/pages/MealManagement/Management';
+import About from './components/pages/About';
+import Menu from './components/pages/Menu';
 
 
 function App() {
@@ -23,8 +25,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path={pages.get('home').path} element={<Home />} />
-          <Route path={pages.get('about').path} element={<UnderConstruction />} />
-          <Route path={pages.get('menu').path} element={<UnderConstruction />} />
+          <Route path={pages.get('about').path} element={<About />} />
+          <Route path={pages.get('menu').path} element={<Menu />} />
           <Route path={pages.get('bookings').path} element={<Bookings />} />
           <Route path={pages.get('confirmedBooking').path} element={<ConfirmedBooking />} />
           <Route path={pages.get('orderOnline').path} element={<Order />} />
