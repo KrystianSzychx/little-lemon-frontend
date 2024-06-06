@@ -52,6 +52,26 @@
     justify-content: center;
     z-index: 1001; /* Ustawienie większego z-index niż koszyka */
 }
+
+.most-frequent-meal {
+  background-color: #F9F9F9;
+  padding: 1.25rem;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.most-frequent-meal h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.most-frequent-meal p {
+  font-size: 1rem;
+  color: #666;
+}
   
   /*-- Media queries ------------------------------------------------------*/
   

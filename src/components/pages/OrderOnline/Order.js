@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import bruschettaImage from '../Home/assets/bruschetta.jpg';
-// import greekSaladImage from '../Home/assets/greek-salad.jpg';
-// import lemonDessertImage from '../Home/assets/lemon-dessert.jpg';
 import './Order.css';
 import MealCard from "../Home/MealCard";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,47 +6,22 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import CartPage from '../CartPage/CartPage';
 import { fetchImages } from '../Home/ImageService';
 
-const meals = [
-    {
-        name: 'Greek Salad',
-        imageName: 'greek-salad.jpg',
-        price: '$12.99',
-        description: `The famous greek salad of crispy lettuce, peppers, olives and 
-        our Chicago style feta cheese, garnished with crunchy garlic and rosemary 
-        croutons.`,
-    },
-    {
-        name: 'Bruschetta',
-        imageName: 'bruschetta.jpg',
-        price: '$5.99',
-        description: `Our Bruschetta is made from grilled bread that has been 
-        smeared with garlic and seasoned with salt and olive oil.`,
-    },
-    {
-        name: 'Lemon Dessert',
-        imageName: 'lemon-dessert.jpg',
-        price: '$5.00',
-        description: `This comes straight from grandma's recipe book, every last 
-        ingredient has been sourced and is as authentic as can be imagined.`,
-    },
-];
-
 const Order = () => {
     const [cartItems, setCartItems] = useState([]);
     const [cartCount, setCartCount] = useState(0);
-    const [showCartPage, setShowCartPage] = useState(false); // Nowy stan do wyświetlenia strony koszyka
+    const [showCartPage, setShowCartPage] = useState(false); 
+    const [mostFrequentMeal, setMostFrequentMeal] = useState(null);
+    const [mealImages, setMealImages] = useState([]);
+    const [meals, setMeals] = useState([]);
 
     const handleAddToCart = (meal) => {
         console.log(`Dodano ${meal.name} do koszyka.`);
-        // Sprawdź, czy przedmiot już istnieje w koszyku
         const existingItemIndex = cartItems.findIndex(item => item.name === meal.name);
         if (existingItemIndex !== -1) {
-            // Jeśli tak, zwiększ tylko ilość
             const updatedCartItems = [...cartItems];
             updatedCartItems[existingItemIndex].quantity += 1;
             setCartItems(updatedCartItems);
         } else {
-            // W przeciwnym razie dodaj nowy przedmiot do koszyka
             const newCartItems = [...cartItems, { ...meal, quantity: 1 }];
             setCartItems(newCartItems);
         }
@@ -70,26 +42,52 @@ const Order = () => {
         setCartItems(updatedCartItems);
     };
 
-    const [mealImages, setMealImages] = useState([]);
-      
-        useEffect(() => {
-          const fetchMealImages = async () => {
+    useEffect(() => {
+        const fetchMostFrequentMeal = async () => {
             try {
-              const imageUrls = await fetchImages(meals.map(meal => meal.imageName));
-              setMealImages(imageUrls);
+                const response = await fetch('https://littlelemonwebapi.azurewebsites.net/api/Meals/most-popular');
+                const data = await response.json();
+                setMostFrequentMeal(data);
             } catch (error) {
-              console.error('Error fetching image URLs:', error);
+                console.error('Error fetching most frequent meal:', error);
             }
-          };
-      
-          fetchMealImages();
-        }, []);
+        };
+
+        const fetchMeals = async () => {
+            try {
+                const response = await fetch('https://littlelemonwebapi.azurewebsites.net/api/Meals');
+                const data = await response.json();
+
+                // Ensure price is a string
+                const mealsWithPriceAsString = data.map(meal => ({
+                    ...meal,
+                    price: meal.price.toString(),
+                }));
+
+                setMeals(mealsWithPriceAsString);
+
+                // const imageUrls = await fetchImages(meals.map(meal => meal.imageName));
+                // setMealImages(imageUrls);
+            } catch (error) {
+                console.error('Error fetching meals:', error);
+            }
+        }
+
+        fetchMostFrequentMeal();
+        fetchMeals();
+    }, []);
 
     return (
         <div className="orders">
             {!showCartPage ? (
                 <>
                     <h2>This week specials!</h2>
+                    {mostFrequentMeal && (
+                        <div className="most-frequent-meal">
+                            <h3>Most Frequently Ordered Meal: {mostFrequentMeal.meals}</h3>
+                            <p>Ordered {mostFrequentMeal.count} times</p>
+                        </div>
+                    )}
                     <section className="container grid week-specials">
                         {meals.map((meal, index) =>
                             <MealCard key={index} meal={meal} imageUrl={mealImages[index]} displayAddToCart={true} handleAddToCart={() => handleAddToCart(meal)} />

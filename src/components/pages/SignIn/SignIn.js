@@ -54,16 +54,32 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.email !== "" && input.password !== "") {
-      auth.loginAction({ email: input.email, password: input.password })
-        .then(() => {
+      fetch('https://littlelemonwebapi.azurewebsites.net/api/Account/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: input.email,
+          password: input.password
+        }),
+      })
+      .then(response => {
+        if (response.ok) {
+          const data = response.json();
+          auth.loginAction(data); // Ensure this line uses the proper method to set the user state
           navigate('/');
-        })
-        .catch((err) => {
-          console.error("Login failed:", err);
-          setOpenSnackbar(true); // Otwórz Snackbar w przypadku błędu logowania
-        });
+        }        
+      })
+      .then(() => {
+        navigate('/');
+      })
+      .catch((err) => {
+        console.error("Login failed:", err);
+        setOpenSnackbar(true);
+      });
     } else {
-      setOpenSnackbar(true); // Otwórz Snackbar w przypadku braku poprawnych danych
+      setOpenSnackbar(true);
     }
   };
 

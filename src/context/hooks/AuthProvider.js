@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -8,18 +8,20 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
   
-
   const loginAction = async (data) => {
     try {
-      const response = await fetch("https://localhost:7235/api/Auth/login", {
+      const response = await fetch("https://littlelemonwebapi.azurewebsites.net/api/Account/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      if (response.ok) { // Sprawdź, czy odpowiedź jest OK        
-        setUser({ username: data.username });
+      if (response.ok) {
+        const result = await response.json();
+        setUser({ email: data.email });
+        setToken(result.token);
+        localStorage.setItem("site", result.token);
         navigate("/dashboard");
         return;
       }

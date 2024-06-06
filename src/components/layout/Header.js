@@ -11,7 +11,6 @@ import { Alert, Snackbar } from '@mui/material';
 
 const navLinks = Array.from(pages.values()).filter(page => page.anchorable);
 
-// Przy założeniu, że 'Login' został już usunięty z obiektu 'pages'
 const Header = () => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();

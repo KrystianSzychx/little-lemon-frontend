@@ -13,9 +13,11 @@ import Logout from './components/pages/Logout/Logout';
 import SignIn from './components/pages/SignIn/SignIn';
 import SignUp from './components/pages/SignUp/SignUp';
 import Order from './components/pages/OrderOnline/Order';
-import CartPage from './components/pages/CartPage/CartPage';
+import CartPage from './components/pages/CartPage/CartPage'
+import Management from './components/pages/MealManagement/Management';
 import About from './components/pages/About';
 import Menu from './components/pages/Menu';
+
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path={pages.get('bookings').path} element={<Bookings />} />
           <Route path={pages.get('confirmedBooking').path} element={<ConfirmedBooking />} />
           <Route path={pages.get('orderOnline').path} element={<Order />} />
+          <Route path={pages.get('Mangement').path} element={<Management />} />
           <Route path="/Cart" element={<CartPage /> } />
           <Route path="/SignIn" element={<SignIn /> } />
           <Route path="/SignUp" element={<SignUp />} />
