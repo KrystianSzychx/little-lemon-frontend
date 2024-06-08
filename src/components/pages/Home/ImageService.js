@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const getImageUrlByName = async (imageName) => {
     try {
-        const response = await axios.get('https://localhost:7051/api/Image/all-images');
+        const response = await axios.get('https://littlelemonwebapi.azurewebsites.net/api/Image/all-images');
         const imageUrl = response.data.find(image => image.name === imageName)?.url;
         return imageUrl || '';
     } catch (error) {
